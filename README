@@ -13,8 +13,10 @@ TODO
 
 In general, the work is largely derived from the Hexagonal Image Processing
 book (ISBN: 978-1-4471-5884-4), and much credit is due for the starting point
-given by the theoretical treatment of the book. This library supports a
-machine vision project for recogntition and reconstruction of geometric 
+given by the theoretical treatment of the book. This library supports a machine
+vision project for recognition and reconstruction of geometric cues with a
+greater degree of efficiency and accuracy than is possible on a rectangular
+sample lattice.
 
 As of the time of this writing, the documentation is internal. Source code
 documentation is in progress. I confess I haven't had time to look at getting a
