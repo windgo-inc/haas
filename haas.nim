@@ -55,14 +55,14 @@ when defined(haas_bootstrap):
     # This executes a script which touches all such include files.
     echo(staticExec "cd haas/ag && sh ensure.sh")
 
-import haas/rdx7type ## Type definitions.
-import haas/rdx7typec ## Type definitions.
+import haas/hatype ## Type definitions.
+import haas/hatypec ## Type definitions.
 
-import haas/rdx7llop ## Low level operators.
-import haas/rdx7skew ## Skewed axes implementation
-import haas/rdx7hlop ## Operators depending on swop and skewed axes.
-import haas/rdx7fop  ## Front end operators.
+import haas/hallop ## Low level operators.
+import haas/haskew ## Skewed axes implementation
+import haas/hahlop ## Operators depending on swop and skewed axes.
+import haas/hafop  ## Front end operators.
 
-export rdx7type, rdx7typec, rdx7skew, rdx7fop, rdx7hlop, rdx7fop
+export hatype, hatypec, haskew, hafop, hahlop, hafop
 
 

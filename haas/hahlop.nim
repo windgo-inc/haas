@@ -1,4 +1,4 @@
-import rdx7type, rdx7typec, rdx7tab, rdx7drvt, rdx7llop, rdx7skew
+import hatype, hatypec, hatab, hadrvt, hallop, haskew
 
 # 2018/01/03
 # William Whitacre
@@ -40,5 +40,5 @@ proc `*`*[U: haas_array, I: SomeInteger](m: I, N: U): U {.inline, noSideEffect.}
 proc `*=`*[U: haas_array, I: SomeInteger](N: var U, m: I) {.inline, noSideEffect.} =
   N = N * m
 
-export rdx7llop
+export hallop
 

@@ -1,4 +1,4 @@
-import rdx7type, rdx7typec, rdx7tab, rdx7drvt, algorithm, math, sequtils, strutils
+import hatype, hatypec, hatab, hadrvt, algorithm, math, sequtils, strutils
 
 # 2017/12/22
 # William Whitacre

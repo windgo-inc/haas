@@ -1,4 +1,4 @@
-import rdx7type, rdx7typec, rdx7tab
+import hatype, hatypec, hatab
 
 # 2017/12/22
 # William Whitacre

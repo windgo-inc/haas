@@ -1,4 +1,4 @@
-import rdx7type
+import hatype
 
 import ag/tab3
 import ag/locii
