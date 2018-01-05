@@ -1,0 +1,23 @@
+Hexagonal Address Aggregate Scheme (HAAS)
+---
+
+This contains the lab software implementation for the HAAS address instruction
+set and storage structure. This is intended to be high level software which
+gives a set of intrinsics and operators which are implemented in some unknown
+fashion. A software reference implementation is given.
+
+TODO
+
+ - Bit flow diagrams for the 3-bit encoding.
+ - Citations
+
+In general, the work is largely derived from the Hexagonal Image Processing
+book (ISBN: 978-1-4471-5884-4), and much credit is due for the starting point
+given by the theoretical treatment of the book. This library supports a
+machine vision project for recogntition and reconstruction of geometric 
+
+As of the time of this writing, the documentation is internal. Source code
+documentation is in progress. I confess I haven't had time to look at getting a
+single documentation file generated. Currently, it generates a tree of files,
+which can make navigation a pain and the search function is close to useless.
+
