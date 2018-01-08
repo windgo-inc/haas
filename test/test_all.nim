@@ -7,7 +7,7 @@ import unittest, macros, haas, math, arraymancer
 # 2017/12/26
 #echo "Multiplicative Inverse"
 
-let naddrs = 7^7
+let naddrs = 7^5
 
 {.deadCodeElim: on.}
 
