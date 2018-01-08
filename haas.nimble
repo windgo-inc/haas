@@ -19,7 +19,7 @@ task tests, "Running all tests":
   exec "mkdir -p test/results"
   exec "test/test_all > `cat tmp_filename` || echo 'Test(s) failed, see results!'"
   exec "echo 'Tests complete, see '`cat tmp_filename`' for full results. Generating PDF...'"
-  exec "sh mkpdf.sh 'HAAS Module Unit Tests' \"`cat tmp_filename`\"  \"`cat tmp_filename`.pdf\" || echo 'Failed to generate PDF from test results!'"
+  exec "wgmkpdf 'HAAS Module Unit Tests' \"`cat tmp_filename`\"  \"`cat tmp_filename`.pdf\" || echo 'Failed to generate PDF from test results!'"
   echo "done."
   exec "rm tmp_filename"
 
@@ -33,7 +33,7 @@ task bench, "Running benchmarks":
   exec "cat `cat tmp_filename`"
   echo ""
   echo "Generating PDF..."
-  exec "sh mkpdf.sh 'HAAS Module Benchmark Results' \"`cat tmp_filename`\"  \"`cat tmp_filename`.pdf\" || echo 'Failed to generate PDF from benchmark results!'"
+  exec "wgmkpdf 'HAAS Module Benchmark Results' \"`cat tmp_filename`\"  \"`cat tmp_filename`.pdf\" || echo 'Failed to generate PDF from benchmark results!'"
   echo "done."
   exec "rm tmp_filename"
 
