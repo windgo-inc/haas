@@ -38,4 +38,21 @@ when declared(haas_ascending_basis):
     N.fill(0)
     haas_fromskew_add_ref(N, x, y)
 
+when declared(haas_toskew_ref) or declared(haas_ascending_basis):
+  import arraymancer
+
+  const sqrt3 = sqrt(3.0)
+  proc sk2c_mat: Tensor[float] {.inline, noSideEffect.} =
+    to_tensor([[2.0, -1.0], [0.0, sqrt3]]) * 0.5
+
+  proc c2sk_mat: Tensor[float] {.inline, noSideEffect.} =
+    to_tensor([[3.0, sqrt3], [0.0, 2.0 * sqrt3]]) / 3.0
+
+  proc haas_skew2cartesian*[U: haas_skew](x: U): auto =
+    let inp = to_tensor([float(x[0]), float(x[1])])
+    result = sk2c_mat() * inp
+
+  proc haas_cartesian2skew*[T: Tensor](x: T): haas_dhexskew =
+    var r = c2sk_mat() * x
+    result = [round(r[0]).haas_hstype, round(r[1]).haas_hstype]
 

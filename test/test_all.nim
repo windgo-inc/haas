@@ -2,11 +2,38 @@
 # William Whitacre
 # Hex Address Aggregate Scheme Reference Implementation Temp Test Suite
 
-import unittest
+import unittest, macros, haas, math, arraymancer
 
 # 2017/12/26
 #echo "Multiplicative Inverse"
 
+let naddrs = 7^7
+
+{.deadCodeElim: on.}
+
+suite "Conversions":
+  test "HAAS-Skew Conversion":
+    for i in 0..naddrs:
+      let a = i.haas
+      let b = as_skew(a)
+      let c = b.haas
+      check a == c
+
+  test "Skew-Cartesian Conversion":
+    for i in 0..naddrs:
+      let a = as_skew(i.haas)
+      let b = haas_skew2cartesian(a)
+      let c = haas_cartesian2skew(b)
+      check a == c
+
+  #test "HAAS-Cartesian Conversion":
+  #  for i in 0..naddrs:
+  #    let a = as_skew(i.haas)
+  #    let b = haas_skew2cartesian(a)
+  #    let c = haas_cartesian2skew(b)
+  #    let d = c.haas
+  #    check i.haas == d
+      
 
 #echo "Baseline image processing overhead on haas framework."
 #var indexing_time_sum: float

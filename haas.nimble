@@ -14,7 +14,7 @@ requires "arraymancer_vision >= 0.0.3"
 skipDirs = @["test", "bootstrap"]
 
 task tests, "Running all tests":
-  exec "nim c -r test/test_all"
+  exec "cd test && nim c -r --stackTrace:on test_all"
 
 task bench, "Running benchmarks":
   exec "nim c -r -d:release test/bench_all"

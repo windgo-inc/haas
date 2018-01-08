@@ -28,9 +28,10 @@ template haas_from_string*(s: string, U: typedesc = haas_datype): untyped =
     r # return from block
 
 proc haas_to_string*[U: haas_array](n: U): string {.inline, noSideEffect.} =
+  result = "0"
   block msd_search:
     for i in countdown(len(n)-1, 0):
-      if n[i] > 0:
+      if not (n[i] == 0):
         result = n[0..i].reversed.join
         break msd_search
 

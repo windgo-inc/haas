@@ -52,13 +52,13 @@ proc `==`*[U: haas_array](N: U, M: U): bool {.inline, noSideEffect.} =
         break EqualityCheck
 
 proc `$`*[U: haas_coding](N: U): string {.noSideEffect.} =
-  [".:", haas_to_string(N)].join
+  ".:" & haas_to_string(N)
 
 proc `$`*[U: haas_array](N: U): string {.noSideEffect.} =
-  [".:", haas_to_string(N)].join
+  ".:" & haas_to_string(N)
 
 proc `$`*[U: haas_skew](N: U): string {.noSideEffect.} =
-  ["[", $N[0], ", ", $N[1], "]"].join
+  ["[", $(N[0]), ", ", $(N[1]), "]"].join
 
 
 
