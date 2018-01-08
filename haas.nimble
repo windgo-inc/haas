@@ -14,10 +14,22 @@ requires "arraymancer_vision >= 0.0.3"
 skipDirs = @["test", "bootstrap"]
 
 task tests, "Running all tests":
-  exec "cd test && nim c -r --stackTrace:on test_all"
+  exec "echo 'test/results/'`date +%Y%m%d-%H.%M.%S`'.test.txt' > tmp_filename"
+  exec "cd test && nim c --stackTrace:on test_all"
+  exec "mkdir -p test/results"
+  exec "test/test_all > `cat tmp_filename` || echo 'Test(s) failed, see results!'"
+  exec "echo 'Tests complete, see '`cat tmp_filename`' for full results.'"
+  exec "rm tmp_filename"
 
 task bench, "Running benchmarks":
-  exec "nim c -r -d:release test/bench_all"
+  exec "echo 'test/results/'`date +%Y%m%d-%H.%M.%S`'.benchmark.txt' > tmp_filename"
+  exec "nim c -d:release test/bench_all"
+  exec "mkdir -p test/results"
+  exec "test/bench_all > `cat tmp_filename`"
+  echo "Benchmark Results:"
+  echo "============================================================"
+  exec "cat `cat tmp_filename`"
+  exec "rm tmp_filename"
 
 task generate, "Generating driver tables":
   exec "sh bootstrap.sh"
