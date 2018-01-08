@@ -5,8 +5,7 @@
 import system, unittest, macros, haas, math, arraymancer
 
 let naddrs = 7^7
-
-{.deadCodeElim: on.}
+#let sample_size = 
 
 suite "Conversions":
   test "HAAS-Skew Conversion":
@@ -31,6 +30,32 @@ suite "Conversions":
       let d = haas_cartesian2skew(c)
       let e = d.haas
       check a == e
+
+suite "Identities":
+  test "Hex address negation is multiplication by 4.":
+    for i in 0..naddrs:
+      let a = i.haas
+      let b = a :*: 4.haas
+      let c = -:a
+      check b == c
+
+  test "Addition of hex address and it's negative is 0.":
+    let zeroaddr = 0.haas
+    for i in 0..7^2:
+      let a = i.haas
+      let b = a :*: 4.haas
+      let c = a :+: b
+      check c == zeroaddr
+
+  test "Hex address multiplication by scalar is summation.":
+    for i in 0..(naddrs div 7^2):
+      let a = i.haas
+      for k in 0..16:
+        let b = a * k
+        var c = 0.haas
+        for j in 0..(k-1):
+          c :+=: a
+        check b == c
 
 #echo "Baseline image processing overhead on haas framework."
 #var indexing_time_sum: float
