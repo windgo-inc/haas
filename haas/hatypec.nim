@@ -7,6 +7,10 @@ import hatype, hatab, algorithm, strutils, sequtils
 # 2017/01/01
 # Needed explicit type conversions to accomodate the default int8 haas_array
 # implementation and default int hex_skew and haas_coding implementations.
+#
+# 2017/01/08
+# Fixed haas_to_string, result was undefined in the case that the value of
+# the given hex address was zero.
 
 template haas_from_string*(s: string, U: typedesc = haas_datype): untyped =
   block:

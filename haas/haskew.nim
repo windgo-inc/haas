@@ -19,9 +19,11 @@ when declared(haas_locii):
 when declared(haas_ascending_basis):
   proc haas_skewaxis_ref*[U: haas_array, F: SomeNumber](R: var U, x: F, m: range[0..6]) {.inline, noSideEffect.} =
     var X = x
+    R.fill(0) # Added to see if this 
     for i in countdown(len(haas_ascending_basis)-1, 0):
       let pow7 = F(pow7_table[i])
-      var val: haas_darray
+      var val: haas_darray = 1.haas
+
       haas_mul_digit_ref_impl(haas_ascending_basis[i], m, val)
       let
         di = X div pow7
