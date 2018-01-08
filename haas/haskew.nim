@@ -18,21 +18,21 @@ when declared(haas_locii):
 
 when declared(haas_ascending_basis):
   proc haas_skewaxis_ref*[U: haas_array, F: SomeNumber](R: var U, x: F, m: range[0..6]) {.inline, noSideEffect.} =
-    var X = x
-    R.fill(0) # zero result buffer
+    var
+      X = if x < 0: -x else: x
+      M = if x < 0: haas_neg_digit(m) else: m
+
     for i in countdown(len(haas_ascending_basis)-1, 0):
       let pow7 = F(pow7_table[i])
-      var val: haas_darray = 1.haas
+      var val: haas_darray = 0.haas
 
-      haas_mul_digit_ref_impl(haas_ascending_basis[i], m, val)
-      let
-        di = X div pow7
-        re = X mod pow7
-      X = re
-      for i in 1..di:
+      haas_mul_digit_ref_impl(haas_ascending_basis[i], M, val)
+      while X >= pow7:
         haas_add_inplace_ref_impl(R, val)
+        X -= pow7
 
   proc haas_fromskew_add_ref*[U: haas_array, F: SomeNumber](N: var U, x, y: F) {.inline, noSideEffect.} =
+    N.fill(0) # zero result buffer
     haas_skewaxis_ref(N, x, 1)
     haas_skewaxis_ref(N, y, 3)
 
