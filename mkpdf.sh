@@ -24,15 +24,59 @@
 # GNU enscript to generate a PDF from plain text. Eventually this will be
 # replaced by a nim program and removed from this project.
 
-which enscript || {
+which enscript &> /dev/null || {
     echo 'The user does not have GNU enscript installed. Please install GNU enscript and try again.'
     exit 1
 }
 
-which ps2pdf || {
+which ps2pdf &> /dev/null || {
     echo 'The user does not have ps2pdf installed. Please install ps2pdf and try again.'
     exit 1
 }
 
-enscript "$1" -o - | ps2pdf - "$2.pdf"
+
+FILEDESC="$1";    shift
+FILENAME="$1";    shift
+OUTFILENAME="$1"; shift
+
+REPORTYEAR="`date +%Y`"
+REPORTDATE="`date +%Y/%m/%d`"
+REPORTTIME="`date +%H:%M:%S`"
+
+REPORTDATEDASH="`date +%Y-%m-%d`"
+REPORTTIMEDOT="`date +%H-%M-%S`"
+
+SANITIZEDFILENAME=${FILENAME//@/@@}
+SANITIZEDFILENAME=${FILENAME//\//@}
+
+# -`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 12`
+TMPFILENAME="./ENSCRIPT.$REPORTDATEDASH-$REPORTTIMEDOT-$SANITIZEDFILENAME"
+
+if [[ "$OUTFILENAME" == "*.pdf" ]]; then
+    OUTFILENAME="$OUTFILENAME.pdf"
+fi
+
+touch "$TMPFILENAME" &> /dev/null || {
+    echo "Cannot access temporary file!" > /dev/stderr
+    exit 1
+}
+
+echo "
+(C) $REPORTYEAR WINDGO Inc.
+FILE: $FILEDESC
+NAME: $FILENAME
+DATE: $REPORTDATE
+TIME: $REPORTTIME
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" > "$TMPFILENAME"
+cat "$FILENAME" >> "$TMPFILENAME"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+END OF FILE $FILEDESC
+NAME: $FILENAME
+DATE: $REPORTDATE
+TIME: $REPORTTIME
+(C) $REPORTYEAR WINDGO Inc." >> "$TMPFILENAME"
+
+enscript "$TMPFILENAME" -o - | ps2pdf - "$OUTFILENAME"
+
+rm -f "$TMPFILENAME"
 
