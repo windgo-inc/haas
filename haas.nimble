@@ -18,7 +18,9 @@ task tests, "Running all tests":
   exec "cd test && nim c --stackTrace:on test_all"
   exec "mkdir -p test/results"
   exec "test/test_all > `cat tmp_filename` || echo 'Test(s) failed, see results!'"
-  exec "echo 'Tests complete, see '`cat tmp_filename`' for full results.'"
+  exec "echo 'Tests complete, see '`cat tmp_filename`' for full results. Generating PDF...'"
+  exec "sh mkpdf.sh \"`cat tmp_filename`\"  \"`cat tmp_filename`.pdf\" || echo 'Failed to generate PDF from test results!'"
+  echo "done."
   exec "rm tmp_filename"
 
 task bench, "Running benchmarks":
@@ -29,6 +31,10 @@ task bench, "Running benchmarks":
   echo "Benchmark Results:"
   echo "============================================================"
   exec "cat `cat tmp_filename`"
+  echo ""
+  echo "Generating PDF..."
+  exec "sh mkpdf.sh \"`cat tmp_filename`\"  \"`cat tmp_filename`.pdf\" || echo 'Failed to generate PDF from benchmark results!'"
+  echo "done."
   exec "rm tmp_filename"
 
 task generate, "Generating driver tables":
